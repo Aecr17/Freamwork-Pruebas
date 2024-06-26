@@ -1,4 +1,4 @@
-# Proyecto de Automatización Web con Selenium y Python para Orange app
+# Proyecto de Automatización Web con Selenium y Python para Tienda Nube
 
 Este repositorio contiene un framework de automatización web utilizando Selenium y Python. A continuación, se detallan los pasos para configurar el entorno, ejecutar las pruebas e incluir nuevas pruebas.
 
