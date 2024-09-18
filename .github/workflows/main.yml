@@ -2,7 +2,8 @@ name: Proyecto Tienda Nube
 
 on: 
   push:
-  workflow_dispatch:
+  
+  workflow_dispatch: #Permite ejecutar el flow manualmente
 
 jobs:
   build:
