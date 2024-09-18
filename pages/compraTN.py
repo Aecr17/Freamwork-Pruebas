@@ -190,7 +190,7 @@ class CompraTiendaNube(ProductosCarrito):
         Metodo que trael el mensaje indicando que se realizó la compra
         """
 
-        expected_title = "Otro" # El titulo es : Envío y pago - PruebasAutomation
+        expected_title = "" # El titulo es : Envío y pago - PruebasAutomation
         actual_title = self.get_title()
         assert actual_title == expected_title, f"Title mismatch. Expected {expected_title}, Actual {actual_title}"
         print("Se encontro el titulo correctamente")
