@@ -1,6 +1,16 @@
 import pytest
 from pages.compraTN import CompraTiendaNube
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+
+def setup_method(self):
+    chrome_options = Options()
+    chrome_options.add_argument("--headless")  # Ejecutar en modo headless
+    chrome_options.add_argument("--no-sandbox")  # Necesario para entornos CI como GitHub Actions
+    chrome_options.add_argument("--disable-dev-shm-usage")  # Evita problemas de memoria compartida
+    chrome_options.add_argument("--disable-gpu")  # Deshabilita la GPU (opcional en algunos casos)
+    chrome_options.add_argument("--window-size=1920x1080")  # Configura el tamaño de ventana
+    self.driver = webdriver.Chrome(options=chrome_options)
 
 class TestIngresarDatos:
     def test_compra_completa(self, driver:webdriver.Remote):
