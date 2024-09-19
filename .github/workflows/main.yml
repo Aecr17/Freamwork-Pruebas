@@ -3,7 +3,7 @@ name: Proyecto Tienda Nube
 on: 
   push:
   
-  workflow_dispatch: #Permite ejecutar el flow manualmente
+  workflow_dispatch: # Permite ejecutar el flow manualmente
 
 jobs:
   build:
@@ -23,13 +23,12 @@ jobs:
     
     # Instalar ChromeDriver
     - name: Install ChromeDriver
-    run: |
-      wget -N https://chromedriver.storage.googleapis.com/`curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE`/chromedriver_linux64.zip
-      unzip chromedriver_linux64.zip
-      sudo mv chromedriver /usr/local/bin/
-      sudo chmod +x /usr/local/bin/chromedriver
+      run: |
+        wget -N https://chromedriver.storage.googleapis.com/`curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE`/chromedriver_linux64.zip
+        unzip chromedriver_linux64.zip
+        sudo mv chromedriver /usr/local/bin/
+        sudo chmod +x /usr/local/bin/chromedriver
   
-
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
