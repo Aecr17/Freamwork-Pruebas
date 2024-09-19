@@ -2,12 +2,14 @@ name: Proyecto Tienda Nube
 
 on: 
   push:
+    branches:
+      - main
   
   workflow_dispatch: #Permite ejecutar el flow manualmente
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
     - name: Checkout code
