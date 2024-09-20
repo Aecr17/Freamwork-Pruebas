@@ -1,58 +1,37 @@
-name: Run Selenium Tests with Latest Chrome
+name: Proyecto Tienda Nube
 
-on:
+on: 
   push:
-    branches:
-      - main
-  pull_request:
+  
+  workflow_dispatch: #Permite ejecutar el flow manualmente
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
+  build:
+    runs-on: windows-latest
 
     steps:
-      # Paso 1: Checkout del código fuente
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      # Paso 2: Instalar dependencias de Python
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.x'
-
-      - name: Install Python dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-
-      # Paso 3: Descargar e instalar Chrome y ChromeDriver utilizando "Chrome for Testing"
-      - name: Install Chrome and ChromeDriver from Chrome for Testing
-        run: |
-          # Descargar el paquete oficial de Chrome y ChromeDriver desde el repositorio de "Chrome for Testing"
-          wget -q https://googlechromelabs.github.io/chrome-for-testing/latest/linux64/chromedriver-linux64.zip
-          wget -q https://googlechromelabs.github.io/chrome-for-testing/latest/linux64/chrome-linux64.zip
-          
-          # Extraer los archivos descargados
-          unzip chromedriver-linux64.zip -d chromedriver/
-          unzip chrome-linux64.zip -d chrome/
-          
-          # Mover los binarios a /usr/local/bin para que sean accesibles
-          sudo mv chromedriver/chromedriver-linux64/chromedriver /usr/local/bin/
-          sudo mv chrome/chrome-linux64/chrome /usr/local/bin/
-          
-          # Dar permisos de ejecución
-          sudo chmod +x /usr/local/bin/chromedriver
-          sudo chmod +x /usr/local/bin/chrome
-          
-          # Verificar versiones instaladas
-          /usr/local/bin/chrome --version
-          /usr/local/bin/chromedriver --version
-
-      # Paso 4: Ejecutar las pruebas con Selenium
-      - name: Run tests
-        run: |
-          pytest  # O el comando que prefieras para ejecutar las pruebas
+    - name: Checkout code
+      uses: actions/checkout@v2
+      
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+        
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        
+    - name: Run tests
+      run: |
+        pytest --html=report.html
+        
+    - name: Upload test report
+      uses: actions/upload-artifact@v3
+      with:
+        name: test-report
+        path: report.html
 
 
 
