@@ -26,29 +26,38 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      # Paso 3: Instalar Chrome y ChromeDriver versión 129 desde "Chrome for Testing"
+      # Paso 3: Descargar e instalar Chrome y ChromeDriver versión 129 desde "Chrome for Testing"
       - name: Install Chrome 129 and ChromeDriver 129
         run: |
-          # Descargar y extraer Chrome versión 129
-          wget -q https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/129.0.3945.88/linux64/chrome-linux64.zip
-          unzip chrome-linux64.zip -d chrome/
-          sudo mv chrome/chrome-linux64/chrome /usr/local/bin/
-          sudo chmod +x /usr/local/bin/chrome
+          set -e  # Detener en caso de error
 
-          # Descargar y extraer ChromeDriver versión 129
-          wget -q https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/129.0.3945.88/linux64/chromedriver-linux64.zip
-          unzip chromedriver-linux64.zip -d chromedriver/
-          sudo mv chromedriver/chromedriver-linux64/chromedriver /usr/local/bin/
-          sudo chmod +x /usr/local/bin/chromedriver
+          echo "Descargando Chrome 129..."
+          wget -q https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/129.0.3945.88/linux64/chrome-linux64.zip || { echo "Error al descargar Chrome"; exit 1; }
+          
+          echo "Extrayendo Chrome..."
+          unzip chrome-linux64.zip -d chrome/ || { echo "Error al extraer Chrome"; exit 1; }
+          
+          sudo mv chrome/chrome-linux64/chrome /usr/local/bin/ || { echo "Error al mover Chrome"; exit 1; }
+          sudo chmod +x /usr/local/bin/chrome || { echo "Error al cambiar permisos de Chrome"; exit 1; }
 
-          # Verificar las versiones instaladas
-          /usr/local/bin/chrome --version
-          /usr/local/bin/chromedriver --version
+          echo "Descargando ChromeDriver 129..."
+          wget -q https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/129.0.3945.88/linux64/chromedriver-linux64.zip || { echo "Error al descargar ChromeDriver"; exit 1; }
+
+          echo "Extrayendo ChromeDriver..."
+          unzip chromedriver-linux64.zip -d chromedriver/ || { echo "Error al extraer ChromeDriver"; exit 1; }
+
+          sudo mv chromedriver/chromedriver-linux64/chromedriver /usr/local/bin/ || { echo "Error al mover ChromeDriver"; exit 1; }
+          sudo chmod +x /usr/local/bin/chromedriver || { echo "Error al cambiar permisos de ChromeDriver"; exit 1; }
+
+          echo "Verificando versiones instaladas..."
+          /usr/local/bin/chrome --version || { echo "Error al verificar versión de Chrome"; exit 1; }
+          /usr/local/bin/chromedriver --version || { echo "Error al verificar versión de ChromeDriver"; exit 1; }
 
       # Paso 4: Ejecutar las pruebas con Selenium
       - name: Run tests
         run: |
           pytest  # O el comando que prefieras para ejecutar las pruebas
+
 
 
 
