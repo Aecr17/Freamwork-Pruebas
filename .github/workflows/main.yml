@@ -1,53 +1,36 @@
-name: Proyecto Tienda Nube
+name: Python Tests
+
 on: 
   push:
   workflow_dispatch:  # Permite ejecutar el flujo manualmente
 
 jobs:
   build:
-    runs-on: ubuntu-latest  # Cambiamos a Ubuntu
+    runs-on: ubuntu-latest
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
-      
+
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
         python-version: '3.x'
-        
+
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
-        pip install webdriver-manager  # Instalamos webdriver-manager para manejar ChromeDriver
-
-    - name: Set up Chrome and ChromeDriver
-      run: |
-        # Instalamos Google Chrome estable
-        sudo apt-get update
-        sudo apt-get install -y google-chrome-stable
-        # Verificamos la instalación de Chrome
-        google-chrome --version
-        # Descargamos y ubicamos ChromeDriver
-        wget https://chromedriver.storage.googleapis.com/$(curl -s https://chromedriver.storage.googleapis.com/LATEST_RELEASE)/chromedriver_linux64.zip
-        unzip chromedriver_linux64.zip
-        sudo mv chromedriver /usr/local/bin/
-        sudo chmod +x /usr/local/bin/chromedriver
-        # Verificamos la instalación de ChromeDriver
-        chromedriver --version
 
     - name: Run tests
       run: |
-        # Ejecutamos las pruebas, especificando la ruta del ChromeDriver si es necesario
         pytest --html=report.html
-        
+
     - name: Upload test report
       uses: actions/upload-artifact@v3
       with:
         name: test-report
         path: report.html
-
 
 
 
