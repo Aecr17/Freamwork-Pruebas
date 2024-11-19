@@ -13,6 +13,7 @@ class CompraTiendaNube(ProductosCarrito):
         self.driver = driver
         self.wait_time = wait_time
 
+
     @property 
     def __aceptar_cookies(self):
         return self.esperar_por_los_elementos((By.XPATH, "//a[@data-amplitude-event-name='cookie_banner_acknowledge_click']"))
