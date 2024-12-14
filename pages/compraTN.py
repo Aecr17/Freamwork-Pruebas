@@ -72,12 +72,12 @@ class CompraTiendaNube(ProductosCarrito):
     
     @property
     def __btn_iframe(self):
-        iframe = self.esperar_por_los_elementos((By.ID, "iFrameResizer0"))
+        iframe = self.esperar_por_los_elementos((By.ID, "iFrameResizer1"))
         self.driver.switch_to.frame(iframe)
 
     @property
     def __btn_transferencia(self):
-        return self.esperar_por_los_elementos((By.XPATH, "//div[text()='Transferencia bancaria']"))
+        return self.esperar_por_los_elementos((By.XPATH, "//div[@id='radio-option-nuvempago_transparent_wire_transfer']//div[@class='d-md-inline-block']"))#//div[text()='Transferencia bancaria']
     
     @property
     def __input_documento_comprado(self):
@@ -191,7 +191,7 @@ class CompraTiendaNube(ProductosCarrito):
         Metodo que trael el mensaje indicando que se realizó la compra
         """
 
-        expected_title = "El titulo es : Envío y pago - PruebasAutomation" # El titulo es : Envío y pago - PruebasAutomation
+        expected_title = "Envío y pago - PruebasAutomation" # El titulo es : Envío y pago - PruebasAutomation
         actual_title = self.get_title()
         assert actual_title == expected_title, f"Title mismatch. Expected {expected_title}, Actual {actual_title}"
         print("Se encontro el titulo correctamente")
