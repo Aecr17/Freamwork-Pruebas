@@ -72,7 +72,7 @@ class CompraTiendaNube(ProductosCarrito):
     
     @property
     def __btn_iframe(self):
-        iframe = self.esperar_por_los_elementos((By.ID, "iFrameResizer1"))
+        iframe = self.esperar_por_los_elementos((By.ID, "payment-iframe"))
         self.driver.switch_to.frame(iframe)
 
     @property
